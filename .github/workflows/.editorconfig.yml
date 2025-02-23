@@ -27,7 +27,8 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Update .editorconfig
         run: |
-          git switch -c update-editorconfig
+          git fetch origin
+          git switch update-editorconfig || git switch -c update-editorconfig
           curl -o .editorconfig https://raw.githubusercontent.com/anttiharju/.editorconfig/HEAD/.editorconfig
       - name: Commit changes
         uses: anttiharju/actions/commit-changes@v0
