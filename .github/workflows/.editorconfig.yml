@@ -40,7 +40,7 @@ jobs:
             https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
       - name: Create Pull Request
         env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
         run: |
           gh pr create \
             --title "Update .editorconfig" \
