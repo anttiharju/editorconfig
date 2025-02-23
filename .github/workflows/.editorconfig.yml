@@ -1,0 +1,37 @@
+name: .editorconfig
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".editorconfig"
+      - ".github/workflows/.editorconfig.yml"
+
+# Eventually: https://github.com/actions/checkout?tab=readme-ov-file#checkout-multiple-repos-side-by-side
+jobs:
+  distribute:
+    name: Distribute
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Generate commit token
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
+          private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
+          repositories: vmatch
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: anttiharju/vmatch
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: Update .editorconfig
+        run: curl -o .editorconfig https://raw.githubusercontent.com/anttiharju/.editorconfig/HEAD/.editorconfig
+      - name: Commit changes
+        uses: anttiharju/actions/commit-changes@v0
+        with:
+          committer: "anttiharju[bot]"
+          message: |
+            Update .editorconfig
+
+            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
