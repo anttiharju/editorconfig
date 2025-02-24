@@ -46,7 +46,7 @@ jobs:
           message: |
             ${{ github.event.head_commit.message }}
 
-            Update .editorconfig to
+            This is an automated update of .editorconfig to
             https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.editorconfig
       - if: steps.commit-changes.outputs.changed == 'true'
         name: Create Pull Request
@@ -54,8 +54,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
           default_branch: ${{ steps.branch.outputs.default }}
-          body: |
-            This is an automated PR from https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/distribute.yml
         run: |
           pr_open=$(gh pr list --head update-editorconfig --json state --jq '.[0].state')
 
