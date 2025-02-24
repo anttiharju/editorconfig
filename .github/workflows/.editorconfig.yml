@@ -43,7 +43,10 @@ jobs:
         with:
           working-directory: anttiharju/vmatch
           committer: "anttiharju[bot]"
-          message: ${{ github.event.head_commit.message }}
+          message: |
+            ${{ github.event.head_commit.message }}
+
+            Automated update of .editorconfig to [${{ github.sha }}](https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.editorconfig)
       - if: steps.commit-changes.outputs.changed == 'true'
         name: Create Pull Request
         working-directory: anttiharju/vmatch
@@ -56,10 +59,16 @@ jobs:
             > Automation origin:
             > https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
         run: |
-          pr_url=$(gh pr create \
-            --title "${{ github.event.head_commit.message }}" \
-            --body "$body" \
-            --base "$default_branch" \
-            --head update-editorconfig)
+          pr_open=$(gh pr list --head update-editorconfig --json state --jq '.[0].state')
 
-          gh pr merge "$pr_url" --squash --auto
+          if [ "$pr_open" = "OPEN" ]; then
+            echo "PR already exists"
+          else
+            pr_url=$(gh pr create \
+              --title "${{ github.event.head_commit.message }}" \
+              --body "$body" \
+              --base "$default_branch" \
+              --head update-editorconfig)
+
+            gh pr merge "$pr_url" --squash --auto
+          fi
