@@ -9,8 +9,8 @@ on:
 
 # Eventually: https://github.com/actions/checkout?tab=readme-ov-file#checkout-multiple-repos-side-by-side
 jobs:
-  distribute:
-    name: Distribute
+  editorconfig:
+    name: EditorConfig
     runs-on: ubuntu-24.04
     steps:
       - name: Generate commit token
