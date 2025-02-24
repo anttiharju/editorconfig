@@ -39,6 +39,7 @@ jobs:
           git fetch origin update-editorconfig --no-tags || true
           git switch update-editorconfig || git switch -c update-editorconfig
           git reset --hard "origin/$default_branch"
+          git push --force
           curl -o .editorconfig https://raw.githubusercontent.com/anttiharju/.editorconfig/${{ github.sha }}/.editorconfig
       - name: Commit changes
         id: commit-changes
