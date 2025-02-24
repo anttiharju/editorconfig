@@ -12,6 +12,11 @@ jobs:
     name: EditorConfig
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .editorconfig
+          sparse-checkout-cone-mode: false # todo: read about this, following actions/checkout recommendation atm
       - name: Generate commit token
         uses: actions/create-github-app-token@v1
         id: generate-token
