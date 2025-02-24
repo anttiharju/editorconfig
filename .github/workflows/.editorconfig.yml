@@ -44,18 +44,21 @@ jobs:
           working-directory: anttiharju/vmatch
           committer: "anttiharju[bot]"
           message: ${{ github.event.head_commit.message }}
-#            This is an automated commit, origin:
-#            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
       - if: steps.commit-changes.outputs.changed == 'true'
         name: Create Pull Request
         working-directory: anttiharju/vmatch
         env:
           GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
           default_branch: ${{ steps.branch.outputs.default }}
+          body: |
+            This is an automated pull request to update the centrally managed .editorconfig file.
+
+            > Automation origin:
+            > https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
         run: |
           pr_url=$(gh pr create \
-            --title "Update .editorconfig" \
-            --body "This is an automated PR" \
+            --title "${{ github.event.head_commit.message }}" \
+            --body "$body" \
             --base "$default_branch" \
             --head update-editorconfig)
 
