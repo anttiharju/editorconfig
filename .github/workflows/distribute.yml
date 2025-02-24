@@ -18,10 +18,16 @@ jobs:
         with:
           app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-          repositories: vmatch
-      - name: Update vmatch
+          repositories: vmatch,actions
+      - name: vmatch
         uses: anttiharju/actions/update-editorconfig@v0
         with:
           repository: vmatch
+          token: ${{ steps.generate-token.outputs.token }}
+          pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
+      - name: actions
+        uses: anttiharju/actions/update-editorconfig@v0
+        with:
+          repository: actions
           token: ${{ steps.generate-token.outputs.token }}
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
