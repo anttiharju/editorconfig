@@ -1,6 +1,6 @@
 # EditorConfig is awesome: https://editorconfig.org
 # Maintained from https://github.com/anttiharju/.editorconfig
-# test overriding existing branch
+# second test to override existing branch
 
 [*]
 end_of_line = lf
