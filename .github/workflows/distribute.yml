@@ -63,10 +63,10 @@ jobs:
             echo "PR already exists"
           else
             pr_url=$(gh pr create \
-              --title "${{ github.event.head_commit.message }}" \
+              --title "Update EditorConfig" \
               --body "$body" \
               --base "$default_branch" \
               --head update-editorconfig)
 
-            gh pr merge "$pr_url" --squash --auto
+            gh pr merge "$pr_url" --merge --auto
           fi
