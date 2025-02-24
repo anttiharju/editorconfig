@@ -17,6 +17,7 @@ jobs:
           sparse-checkout: |
             .editorconfig
           sparse-checkout-cone-mode: false # todo: read about this, following actions/checkout recommendation atm
+          path: central
       - name: Generate commit token
         uses: actions/create-github-app-token@v1
         id: generate-token
