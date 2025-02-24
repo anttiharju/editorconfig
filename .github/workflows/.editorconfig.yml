@@ -19,42 +19,39 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "content=$(gh api repos/anttiharju/.editorconfig/commits/${{ github.sha }} --jq .commit.message)" >> "$GITHUB_OUTPUT"
-      - name: TEst
+      - name: Generate commit token
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
+          private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
+          repositories: vmatch
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: anttiharju/vmatch
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: Update .editorconfig
         run: |
-          echo ${{ steps.commit-message.outputs.content }}
-#      - name: Generate commit token
-#        uses: actions/create-github-app-token@v1
-#        id: generate-token
-#        with:
-#          app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
-#          private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-#          repositories: vmatch
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#        with:
-#          repository: anttiharju/vmatch
-#          token: ${{ steps.generate-token.outputs.token }}
-#      - name: Update .editorconfig
-#        run: |
-#          git fetch origin
-#          git switch update-editorconfig || git switch -c update-editorconfig
-#          curl -o .editorconfig https://raw.githubusercontent.com/anttiharju/.editorconfig/HEAD/.editorconfig
-#      - name: Commit changes
-#        uses: anttiharju/actions/commit-changes@v0
-#        with:
-#          committer: "anttiharju[bot]"
-#          message: |
-#            Update .editorconfig
-#
-#            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
-#      - name: Create Pull Request
-#        env:
-#          GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
-#        run: |
-#          pr_url=$(gh pr create \
-#            --title "Update .editorconfig" \
-#            --body "This is an automated PR" \
-#            --base main \
-#            --head update-editorconfig)
-#
-#          gh pr merge "$pr_url" --squash --auto
+          git fetch origin
+          git switch update-editorconfig || git switch -c update-editorconfig
+          curl -o .editorconfig https://raw.githubusercontent.com/anttiharju/.editorconfig/HEAD/.editorconfig
+      - name: Commit changes
+        uses: anttiharju/actions/commit-changes@v0
+        with:
+          committer: "anttiharju[bot]"
+          message: |
+            Update .editorconfig
+
+            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
+        run: |
+          pr_url=$(gh pr create \
+            --title "Update .editorconfig" \
+            --body "This is an automated PR" \
+            --base main \
+            --head update-editorconfig)
+
+          gh pr merge "$pr_url" --squash --auto
