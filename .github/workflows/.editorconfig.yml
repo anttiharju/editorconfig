@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Get commit message
         id: commit-message
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "content=$(gh api repos/anttiharju/.editorconfig/commits/${{ github.sha }} --jq .commit.message)" >> "$GITHUB_OUTPUT"
       - name: TEst
