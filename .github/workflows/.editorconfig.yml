@@ -34,6 +34,7 @@ jobs:
           path: anttiharju/vmatch
       - name: Print current branch name
         id: branch
+        working-directory: anttiharju/vmatch
         run: |
           git branch --show-current
 #      - name: Update .editorconfig
