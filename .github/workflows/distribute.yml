@@ -63,8 +63,7 @@ jobs:
             echo "PR already exists"
           else
             pr_url=$(gh pr create \
-              --title "Update EditorConfig" \
-              --body "$body" \
+              --fill \
               --base "$default_branch" \
               --head update-editorconfig)
 
