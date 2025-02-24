@@ -55,10 +55,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
           default_branch: ${{ steps.branch.outputs.default }}
           body: |
-            This is an automated pull request to update the centrally managed .editorconfig file.
-
-            > Automation origin:
-            > https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
+            This is an automated PR from https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
         run: |
           pr_open=$(gh pr list --head update-editorconfig --json state --jq '.[0].state')
 
