@@ -46,7 +46,8 @@ jobs:
           message: |
             ${{ github.event.head_commit.message }}
 
-            Automated update of .editorconfig to [${{ github.sha }}](https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.editorconfig)
+            Update .editorconfig to
+            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.editorconfig
       - if: steps.commit-changes.outputs.changed == 'true'
         name: Create Pull Request
         working-directory: anttiharju/vmatch
