@@ -31,7 +31,9 @@ jobs:
         with:
           repository: anttiharju/vmatch
           token: ${{ steps.generate-token.outputs.token }}
+          path: anttiharju/vmatch
       - name: Update .editorconfig
+        working-directory: anttiharju/vmatch
         run: |
           git fetch origin update-editorconfig --no-tags || true
           git switch update-editorconfig || git switch -c update-editorconfig
@@ -40,6 +42,7 @@ jobs:
         id: commit-changes
         uses: anttiharju/actions/commit-changes@v0
         with:
+          working-directory: anttiharju/vmatch
           committer: "anttiharju[bot]"
           message: |
             ${{ steps.commit-message.outputs.content }}
@@ -48,6 +51,7 @@ jobs:
             https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
       - if: steps.commit-changes.outputs.changed == 'true'
         name: Create Pull Request
+        working-directory: anttiharju/vmatch
         env:
           GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
         run: |
