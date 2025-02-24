@@ -28,11 +28,13 @@ jobs:
         uses: anttiharju/actions/update-editorconfig@v0
         with:
           repository: vmatch
-          token: ${{ steps.generate-token.outputs.token }}
+          committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
       - name: actions
         uses: anttiharju/actions/update-editorconfig@v0
         with:
           repository: actions
+          committer: "anttiharju[bot]"
           token: ${{ steps.generate-token.outputs.token }}
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
