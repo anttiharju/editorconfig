@@ -32,33 +32,37 @@ jobs:
           repository: anttiharju/vmatch
           token: ${{ steps.generate-token.outputs.token }}
           path: anttiharju/vmatch
-      - name: Update .editorconfig
-        working-directory: anttiharju/vmatch
+      - name: Print current branch name
+        id: branch
         run: |
-          git fetch origin update-editorconfig --no-tags || true
-          git switch update-editorconfig || git switch -c update-editorconfig
-          curl -o .editorconfig https://raw.githubusercontent.com/anttiharju/.editorconfig/${{ github.sha }}/.editorconfig
-      - name: Commit changes
-        id: commit-changes
-        uses: anttiharju/actions/commit-changes@v0
-        with:
-          working-directory: anttiharju/vmatch
-          committer: "anttiharju[bot]"
-          message: |
-            ${{ steps.commit-message.outputs.content }}
-
-            This is an automated commit, origin:
-            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
-      - if: steps.commit-changes.outputs.changed == 'true'
-        name: Create Pull Request
-        working-directory: anttiharju/vmatch
-        env:
-          GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
-        run: |
-          pr_url=$(gh pr create \
-            --title "Update .editorconfig" \
-            --body "This is an automated PR" \
-            --base main \
-            --head update-editorconfig)
-
-          gh pr merge "$pr_url" --squash --auto
+          git branch --show-current
+#      - name: Update .editorconfig
+#        working-directory: anttiharju/vmatch
+#        run: |
+#          git fetch origin update-editorconfig --no-tags || true
+#          git switch update-editorconfig || git switch -c update-editorconfig
+#          curl -o .editorconfig https://raw.githubusercontent.com/anttiharju/.editorconfig/${{ github.sha }}/.editorconfig
+#      - name: Commit changes
+#        id: commit-changes
+#        uses: anttiharju/actions/commit-changes@v0
+#        with:
+#          working-directory: anttiharju/vmatch
+#          committer: "anttiharju[bot]"
+#          message: |
+#            ${{ steps.commit-message.outputs.content }}
+#
+#            This is an automated commit, origin:
+#            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
+#      - if: steps.commit-changes.outputs.changed == 'true'
+#        name: Create Pull Request
+#        working-directory: anttiharju/vmatch
+#        env:
+#          GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
+#        run: |
+#          pr_url=$(gh pr create \
+#            --title "Update .editorconfig" \
+#            --body "This is an automated PR" \
+#            --base main \
+#            --head update-editorconfig)
+#
+#          gh pr merge "$pr_url" --squash --auto
