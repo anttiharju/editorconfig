@@ -1,4 +1,4 @@
-name: .editorconfig
+name: Distribute
 on:
   push:
     branches:
