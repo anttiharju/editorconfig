@@ -7,7 +7,6 @@ on:
       - ".editorconfig"
       - ".github/workflows/distribute.yml"
 
-# Eventually: https://github.com/actions/checkout?tab=readme-ov-file#checkout-multiple-repos-side-by-side
 jobs:
   editorconfig:
     name: EditorConfig
