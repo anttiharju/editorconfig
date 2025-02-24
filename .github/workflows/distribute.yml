@@ -68,5 +68,5 @@ jobs:
               --base "$default_branch" \
               --head update-editorconfig)
 
-            gh pr merge "$pr_url" --merge --auto
+            gh pr merge "$pr_url" --squash --auto
           fi
