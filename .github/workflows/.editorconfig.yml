@@ -41,7 +41,7 @@ jobs:
         with:
           committer: "anttiharju[bot]"
           message: |
-            Update .editorconfig
+            ${{ steps.commit-message.outputs.content }}
 
             https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
       - name: Create Pull Request
