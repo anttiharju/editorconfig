@@ -46,7 +46,7 @@ jobs:
 
             This is an automated commit, origin:
             https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
-      - if: steps.commit-changes.outputs.changed
+      - if: steps.commit-changes.outputs.changed == 'true'
         name: Create Pull Request
         env:
           GH_TOKEN: ${{ secrets.PULL_REQUEST_TOKEN }}
