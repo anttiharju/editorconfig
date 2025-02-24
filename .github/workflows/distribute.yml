@@ -14,8 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: |
-            .editorconfig
+          sparse-checkout: .editorconfig
           sparse-checkout-cone-mode: false # todo: read about this, following actions/checkout recommendation atm
           path: central
       - name: Generate commit token
