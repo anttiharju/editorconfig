@@ -13,12 +13,6 @@ jobs:
     name: Distribute
     runs-on: ubuntu-24.04
     steps:
-      - name: Get commit message
-        id: commit-message
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          echo "content=$(gh api repos/anttiharju/.editorconfig/commits/${{ github.sha }} --jq .commit.message)" >> "$GITHUB_OUTPUT"
       - name: Generate commit token
         uses: actions/create-github-app-token@v1
         id: generate-token
@@ -49,11 +43,9 @@ jobs:
         with:
           working-directory: anttiharju/vmatch
           committer: "anttiharju[bot]"
-          message: |
-            ${{ steps.commit-message.outputs.content }}
-
-            This is an automated commit, origin:
-            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
+          message: ${{ github.event.head_commit.message }}
+#            This is an automated commit, origin:
+#            https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
       - if: steps.commit-changes.outputs.changed == 'true'
         name: Create Pull Request
         working-directory: anttiharju/vmatch
