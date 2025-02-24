@@ -43,6 +43,7 @@ jobs:
           message: |
             ${{ steps.commit-message.outputs.content }}
 
+            This is an automated commit, origin:
             https://github.com/anttiharju/.editorconfig/blob/${{ github.sha }}/.github/workflows/.editorconfig.yml
       - name: Create Pull Request
         env:
