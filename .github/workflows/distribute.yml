@@ -24,3 +24,4 @@ jobs:
         with:
           repository: vmatch
           token: ${{ steps.generate-token.outputs.token }}
+          pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
