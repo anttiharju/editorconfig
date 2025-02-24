@@ -20,7 +20,7 @@ jobs:
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
           repositories: vmatch
       - name: Update vmatch
-        uses: ./.github/actions/update-repo
+        uses: anttiharju/actions/update-editorconfig@v0
         with:
           repository: vmatch
           token: ${{ steps.generate-token.outputs.token }}
