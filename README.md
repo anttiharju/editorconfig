@@ -1,2 +1,3 @@
-# .editorconfig
+# editorconfig
+
 Centrally managed EditorConfig
