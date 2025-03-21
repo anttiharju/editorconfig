@@ -23,7 +23,7 @@ jobs:
         with:
           app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-          repositories: vmatch,actions
+          repositories: vmatch,actions,ssh
       - name: vmatch
         uses: anttiharju/actions/update-editorconfig@v0
         with:
@@ -35,6 +35,13 @@ jobs:
         uses: anttiharju/actions/update-editorconfig@v0
         with:
           repository: actions
+          committer: "anttiharju[bot]"
+          pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: ssh
+        uses: anttiharju/actions/update-editorconfig@v0
+        with:
+          repository: ssh
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
