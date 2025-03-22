@@ -45,3 +45,4 @@ jobs:
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
+          private-repo: true
