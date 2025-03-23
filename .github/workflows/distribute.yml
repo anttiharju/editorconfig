@@ -23,7 +23,7 @@ jobs:
         with:
           app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-          repositories: vmatch,actions,.ssh
+          repositories: vmatch,actions,.ssh,dotfiles
       - name: vmatch
         uses: anttiharju/actions/update-editorconfig@v0
         with:
@@ -45,4 +45,12 @@ jobs:
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
-          private-repo: true
+          automerge: false
+      - name: dotfiles
+        uses: anttiharju/actions/update-editorconfig@v0
+        with:
+          repository: dotfiles
+          committer: "anttiharju[bot]"
+          pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
+          automerge: false
