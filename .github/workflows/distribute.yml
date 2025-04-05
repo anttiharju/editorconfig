@@ -23,7 +23,7 @@ jobs:
         with:
           app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-          repositories: vmatch,actions,.ssh,dotfiles,utils
+          repositories: vmatch,actions,.ssh,dotfiles,utils,check-relative-markdown-links
       - name: vmatch
         uses: anttiharju/actions/update-editorconfig@v0
         with:
@@ -58,6 +58,13 @@ jobs:
         uses: anttiharju/actions/update-editorconfig@v0
         with:
           repository: utils
+          committer: "anttiharju[bot]"
+          pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: check-relative-markdown-links
+        uses: anttiharju/actions/update-editorconfig@v0
+        with:
+          repository: check-relative-markdown-links
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
