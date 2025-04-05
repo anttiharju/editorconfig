@@ -2,6 +2,10 @@
 
 Centrally managed EditorConfig
 
+## Why
+
+I don't want to keep reinventing my config per project and distribute any new changes everywhere.
+
 ## How to roll in a new repository
 
 Docs for anttiharju - if you are not Antti, these obviously do not apply to you.
