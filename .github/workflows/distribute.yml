@@ -12,11 +12,8 @@ jobs:
     name: EditorConfig
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: .editorconfig
-          sparse-checkout-cone-mode: false # todo: read about this, following actions/checkout recommendation atm
-          path: central
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Generate commit token
         uses: actions/create-github-app-token@v1
         id: generate-token
@@ -25,21 +22,21 @@ jobs:
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
           repositories: vmatch,actions,dotfiles,utils,check-relative-markdown-links
       - name: vmatch
-        uses: anttiharju/actions/update-editorconfig@v0
+        uses: ./.github/actions/update-editorconfig
         with:
           repository: vmatch
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
       - name: actions
-        uses: anttiharju/actions/update-editorconfig@v0
+        uses: ./.github/actions/update-editorconfig
         with:
           repository: actions
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
       - name: dotfiles
-        uses: anttiharju/actions/update-editorconfig@v0
+        uses: ./.github/actions/update-editorconfig
         with:
           repository: dotfiles
           committer: "anttiharju[bot]"
@@ -47,14 +44,14 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           automerge: false
       - name: utils
-        uses: anttiharju/actions/update-editorconfig@v0
+        uses: ./.github/actions/update-editorconfig
         with:
           repository: utils
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
       - name: check-relative-markdown-links
-        uses: anttiharju/actions/update-editorconfig@v0
+        uses: ./.github/actions/update-editorconfig
         with:
           repository: check-relative-markdown-links
           committer: "anttiharju[bot]"
