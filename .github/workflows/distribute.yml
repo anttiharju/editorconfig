@@ -20,7 +20,7 @@ jobs:
         with:
           app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-          repositories: vmatch,actions,dotfiles,utils,relcheck
+          repositories: vmatch,actions,dotfiles,utils,relcheck,l0v
       - name: vmatch
         uses: ./.github/actions/update-editorconfig
         with:
@@ -54,6 +54,13 @@ jobs:
         uses: ./.github/actions/update-editorconfig
         with:
           repository: relcheck
+          committer: "anttiharju[bot]"
+          pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
+      - name: l0v
+        uses: ./.github/actions/update-editorconfig
+        with:
+          repository: l0v
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
