@@ -20,7 +20,7 @@ jobs:
         with:
           app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-          repositories: vmatch,actions,dotfiles,utils,relcheck,l0v
+          repositories: vmatch,actions,dotfiles,utils,relcheck,homelab
       - name: vmatch
         uses: ./.github/actions/update-editorconfig
         with:
@@ -57,10 +57,10 @@ jobs:
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
-      - name: l0v
+      - name: homelab
         uses: ./.github/actions/update-editorconfig
         with:
-          repository: l0v
+          repository: homelab
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
