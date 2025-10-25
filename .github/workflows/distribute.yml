@@ -20,7 +20,7 @@ jobs:
         with:
           app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-          repositories: vmatch,actions,relcheck,homelab,nix-darwin,rust-book
+          repositories: vmatch,actions,relcheck,homelab,nix-darwin,rust-book,nixpkgs-anttiharju
       - name: vmatch
         uses: ./.github/actions/update-editorconfig
         with:
@@ -61,6 +61,14 @@ jobs:
         uses: ./.github/actions/update-editorconfig
         with:
           repository: rust-book
+          committer: "anttiharju[bot]"
+          pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
+          automerge: false
+      - name: nixpkgs-anttiharju
+        uses: ./.github/actions/update-editorconfig
+        with:
+          repository: nixpkgs-anttiharju
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
