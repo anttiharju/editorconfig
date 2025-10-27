@@ -48,7 +48,7 @@ runs:
         cp ../.editorconfig .
     - name: Commit changes
       id: commit-changes
-      uses: anttiharju/actions/commit-changes@v1
+      uses: anttiharju/actions/commit-changes@v0
       with:
         working-directory: ${{ inputs.repository }}
         committer: ${{ inputs.committer }}
