@@ -20,7 +20,7 @@ jobs:
         with:
           app-id: ${{ secrets.ANTTIHARJU_BOT_ID }}
           private-key: ${{ secrets.ANTTIHARJU_BOT_PRIVATE_KEY }}
-          repositories: vmatch,actions,relcheck,homelab,rust-book,nur-packages,go-starter,rust-starter,compare-changes
+          repositories: vmatch,actions,relcheck,homelab,nix-darwin,rust-book,nur-packages,go-starter,rust-starter,compare-changes
       - name: vmatch
         uses: ./.github/actions/update-editorconfig
         with:
@@ -49,6 +49,14 @@ jobs:
           committer: "anttiharju[bot]"
           pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
           token: ${{ steps.generate-token.outputs.token }}
+      - name: nix-darwin
+        uses: ./.github/actions/update-editorconfig
+        with:
+          repository: nix-darwin
+          committer: "anttiharju[bot]"
+          pr-token: ${{ secrets.PULL_REQUEST_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
+          automerge: false
       - name: rust-book
         uses: ./.github/actions/update-editorconfig
         with:
